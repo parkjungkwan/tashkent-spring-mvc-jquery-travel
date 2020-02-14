@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "texas.sbq.travel.mapper.TourismMapper">
+    <select id="selectTourismList" parameterType="Tourism" resultType="Tourism">
+		select * from tourism
+	</select>
+	<select id="selectTourism" resultType = "hashmap">
+		select tseq, tourname, touraddr, latitude, longitude, tourinfo, tel, tourimg
+		from tourism
+	</select>
+</mapper>

@@ -1,0 +1,79 @@
+CREATE TABLE ADMIN
+                (AID VARCHAR(30) PRIMARY KEY,
+                APWD VARCHAR(30),
+                TEL VARCHAR(30))default character set utf8 collate utf8_general_ci;
+CREATE TABLE TOURIZM
+                (TSEQ INT(30) PRIMARY KEY AUTO_INCREMENT,
+      TOURNAME VARCHAR(30),
+                TOURADDR VARCHAR(30),
+                LATITUDE VARCHAR(30),
+                HARDNESS VARCHAR(30),
+      TOURINFO VARCHAR(500),
+      TEL VARCHAR(30),
+                TOURIMG VARCHAR(500))default character set utf8 collate utf8_general_ci;
+CREATE TABLE USERS
+                (UID VARCHAR(30) PRIMARY KEY,
+                PWD VARCHAR(30) ,
+                UNAME VARCHAR(30) ,
+                NICKNAME VARCHAR(30) ,
+                BIRTH VARCHAR(30) ,
+                TEL VARCHAR(30))default character set utf8 collate utf8_general_ci;
+CREATE TABLE HOTEL
+      (HSEQ INT(30) PRIMARY KEY AUTO_INCREMENT,
+      HOTELNAME VARCHAR(30),
+      TEL VARCHAR(30),
+      HOTELIMG VARCHAR(500),
+      HAREA VARCHAR(10),
+      HOTELINFO VARCHAR(100),
+      HADDR VARCHAR(50),
+      ONEMAP VARCHAR(30),
+        TWOMAP VARCHAR(30))default character set utf8 collate utf8_general_ci;
+CREATE TABLE ROOM
+      (RSEQ INT(30) PRIMARY KEY AUTO_INCREMENT,
+      ROOMTYPE VARCHAR(50),
+      ROOMIMG VARCHAR(500),
+      PRICE INT,
+      HSEQ INT(30) NOT NULL,
+      FOREIGN KEY(HSEQ) REFERENCES HOTEL(HSEQ))default character set utf8 collate utf8_general_ci;
+CREATE TABLE COMMENTS
+     (CSEQ INT(30) PRIMARY KEY AUTO_INCREMENT,
+      HCOMMENTS VARCHAR(500),
+      RATING DOUBLE,
+      UID VARCHAR(30),
+      HSEQ INT(30) NOT NULL,
+      FOREIGN KEY(UID) REFERENCES USERS(UID),
+      FOREIGN KEY(HSEQ) REFERENCES HOTEL(HSEQ))default character set utf8 collate utf8_general_ci;
+CREATE TABLE RESERVATION
+      (BSEQ INT(30) PRIMARY KEY AUTO_INCREMENT,
+      INDATE VARCHAR(30),
+      OUTDATE VARCHAR(30),
+      PRICE INT,
+      HSEQ INT(30) NOT NULL,
+      RSEQ INT(30) NOT NULL ,
+      UID VARCHAR(30),
+      FOREIGN KEY(HSEQ) REFERENCES HOTEL(HSEQ),
+      FOREIGN KEY(UID) REFERENCES USERS(UID),
+      FOREIGN KEY(RSEQ) REFERENCES ROOM(RSEQ))default character set utf8 collate utf8_general_ci;
+CREATE TABLE COMMUNITY
+     (ARTSEQ INT(10) PRIMARY KEY AUTO_INCREMENT,
+     UID VARCHAR(20),
+     IMG VARCHAR(500),
+     TITLE VARCHAR(100),
+     CONTENT VARCHAR(500),teamwego
+     TSEQ INT(30),
+     FOREIGN KEY (TSEQ) REFERENCES TOURIZM(TSEQ),
+     FOREIGN KEY(UID) REFERENCES USERS(UID))default character set utf8 collate utf8_general_ci;
+     
+CREATE TABLE LIKETO(LIKESEQ INT(10) PRIMARY KEY  AUTO_INCREMENT,
+      ARTSEQ INT(10) NOT NULL , 
+       UID VARCHAR(30) ,
+     LIKECHECK VARCHAR(10),
+     FOREIGN KEY (ARTSEQ) REFERENCES COMMUNITY(ARTSEQ),
+       FOREIGN KEY (UID) REFERENCES USERS(UID))default character set utf8 collate utf8_general_ci;
+     
+CREATE TABLE REPLY
+     (RESEQ INT(10) PRIMARY KEY AUTO_INCREMENT,
+     RCOMMENTS VARCHAR(500) , 
+     UID VARCHAR(20),  
+     ARTSEQ INT(10),
+     FOREIGN KEY (UID) REFERENCES USERS(UID))default character set utf8 collate utf8_general_ci;   
