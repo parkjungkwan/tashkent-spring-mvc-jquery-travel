@@ -9,6 +9,7 @@ mainHome = (() => {
     let communityjs; 
     let loginjs,mypagejs,joinchoicejs;
     let hotelMainVuejs, hotelHomejs,hotelDetailjs,festivaljs;
+    let brdjs, brdVuejs
 
     let init = () => {
         context = $.ctx()
@@ -25,7 +26,9 @@ mainHome = (() => {
         hotelMainVuejs = js+'/hotel/hVue/hotelMainVue.js'
       	hotelHomejs = js+'/hotel/hotelHome.js'
       	hotelDetailjs = js+'/hotel/hotelDetail.js'
-      	festivaljs = js+ `/festival/festival.js`
+          festivaljs = js+ `/festival/festival.js`
+          brdjs = js+'/brd/brd.js'
+          brdVuejs = js+'/brd/brd_vue.js'
     }
     let onCreate = () => {
         init()

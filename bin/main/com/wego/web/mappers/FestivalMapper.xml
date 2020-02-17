@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="texas.sbq.travel.mapper.FestivalMapper">
+  
+  
+  
+	<select id="create" >
+		create table festivals(festival_seq int(10) primary key auto_increment,
+		   title varchar(100) ,
+		   image varchar(300),
+		   term varchar(30),
+		   information varchar(500),
+		   location_seq int(10),
+		   foreign key (location_seq) references locations(location_seq)
+		)default character set utf8 collate utf8_general_ci
+	</select>
+	<insert id="insert" parameterType="texas.sbq.travel.domain.Festival">
+  	insert into festivals(title,image,term,inform)
+  	values (#{ftitle},#{fimg},#{fdate},#{finfo})
+  </insert>
+	
+
+	<select id="count" resultType="string" parameterType="string">
+		select count(*)	count 
+		from festivals  
+		
+	</select>
+	<select id="select" resultType="texas.sbq.travel.domain.Festival" 
+  								parameterType="string">
+		select * 
+		from festivals 
+	</select>
+	
+ <select id="filter" resultType="texas.sbq.travel.domain.Festival">
+ 		select * 
+		from festivals 
+ </select>
+	<update id="update" parameterType="texas.sbq.travel.domain.Festival">
+		update festivals
+		set title =	#{title}, content = #{content}
+		where festival_seq like #{festivalSeq}
+	</update>
+
+	<delete id="delete" parameterType="string">
+		delete from festivals 
+		where festival_seq like #{value}
+	</delete>
+	
+	
+	  
+  </mapper>

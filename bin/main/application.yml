@@ -5,7 +5,7 @@ spring:
     hibernate:
       ddl-auto: update 
   datasource:
-    url: jdbc:mariadb://demo.cqlznyk14le0.ap-northeast-2.rds.amazonaws.com:3306/demodb
+    url: jdbc:mariadb://demo.cqlznyk14le0.ap-northeast-2.rds.amazonaws.com:3306/travel
     driver-class-name: org.mariadb.jdbc.Driver
     username: demo
     password: demonstration

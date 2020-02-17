@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="texas.sbq.travel.mapper.HotelMapper">
+
+	<select id="create" >
+		create table hotels(hotel_seq int(10) primary key auto_increment,
+		      name varchar(30),
+		      phone_num varchar(30),
+		      image varchar(500),
+		      area varchar(10),
+		      information varchar(1500),
+		      location_seq int(10),
+		      foreign key (location_seq) references locations(location_seq)
+		)default character set utf8 collate utf8_general_ci
+	</select>
+	<insert id="insert" parameterType="texas.sbq.travel.domain.Festival">
+  	insert into hotels(name)
+  	values (#{name})
+  </insert>
+   <select id="count" resultType="string" parameterType="string">
+		select count(*)	count 
+		from hotels  
+	</select>
+    <select id="select" parameterType="string" 
+    						resultType="texas.sbq.travel.domain.Hotel">
+		select * from hotels
+		where hotel_seq like #{value}
+	</select>
+	
+    <select id="filter" parameterType="texas.sbq.travel.hotel.Hotel" 
+                              resultType="texas.sbq.travel.domain.Hotel">
+			select d.*
+			from (select a.price , a.hotelname, a.hseq, b.hotelimg, b.rating, b.haddr, a.rseq
+			from 	(select min(r.price) price, h.hotelname, r.hseq, r.rseq
+			from hotel h join room r
+			on h.hseq = r.hseq
+			group by hseq) a join (select round(avg(c.rating)*1,2) rating, h.hseq, h.hotelname, h.hotelimg, h.haddr
+			from hotel h join comments c join room r
+			on c.hseq = h.hseq = r.hseq
+			group by hseq
+			order by rating desc)b
+			on a.hseq = b.hseq) d
+			order by d.rating desc
+	</select>
+	    <select id="selectHotelListForPrice" parameterType="texas.sbq.travel.hotel.Hotel" resultType="texas.sbq.travel.hotel.Hotel">
+			select d.*
+			from (select a.price , a.hotelname, a.hseq, b.hotelimg, b.rating, b.haddr, a.rseq
+			from 	(select min(r.price) price, h.hotelname, r.hseq, r.rseq
+			from hotel h join room r
+			on h.hseq = r.hseq
+			group by hseq) a join (select round(avg(c.rating)*1,2) rating, h.hseq, h.hotelname, h.hotelimg, h.haddr
+			from hotel h join comments c join room r
+			on c.hseq = h.hseq = r.hseq
+			group by hseq
+			order by rating desc)b
+			on a.hseq = b.hseq) d
+			order by d.price
+
+	</select>
+	
+		<select id="selectCommentsList" parameterType="texas.sbq.travel.hotel.Comments" resultType="texas.sbq.travel.hotel.Comments">
+			select * 
+			from comments c join hotel h
+			on c.hseq = h.hseq 
+			where h.hseq like #{hseq}
+
+		</select> 
+		<select id="selectReservationList" parameterType="texas.sbq.travel.hotel.Reservation" resultType="texas.sbq.travel.hotel.Reservation">
+			select * from reservation
+		</select> 
+	
+	
+	
+	<select id="selectSearchList"  resultType="texas.sbq.travel.hotel.Hotel">
+		select * from hotel where harea like #{harea} order by hseq desc
+	</select>
+	<select id="selectLocationList" parameterType="texas.sbq.travel.hotel.Hotel" resultType="texas.sbq.travel.hotel.Hotel">
+ 			select d.*
+			from (select a.price , a.hotelname, a.hseq, b.hotelimg, b.rating, b.haddr, b.harea
+				from 	(select min(r.price) price, h.hotelname, r.hseq
+							from hotel h join room r
+							on h.hseq = r.hseq
+							group by hseq) a join (select round(avg(c.rating)*1,2) rating, h.hseq, h.hotelname, h.hotelimg, h.haddr, h.harea
+							from hotel h join comments c join room r
+							on c.hseq = h.hseq = r.hseq
+							group by hseq
+							order by rating desc)b
+				on a.hseq = b.hseq) d
+			where d.harea like #{harea}
+			order by rating desc
+	</select>
+	<select id="selectMapByHseq" parameterType="int" resultType="texas.sbq.travel.hotel.Hotel">
+		select latitude, longitude
+		from hotel
+		where hseq like #{hseq}
+	</select>
+	
+	<update id="update" parameterType="texas.sbq.travel.domain.Festival">
+		update festivals
+		set title =	#{title}, content = #{content}
+		where festival_seq like #{festivalSeq}
+	</update>
+
+	<delete id="delete" parameterType="string">
+		delete from festivals 
+		where festival_seq like #{value}
+	</delete>
+</mapper>

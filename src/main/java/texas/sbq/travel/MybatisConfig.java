@@ -11,7 +11,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@MapperScan(basePackages= {"texas.sbq.travel.mapper"})
+@MapperScan(basePackages= {"texas.sbq.travel.mappers"})
 @EnableTransactionManagement
 public class MybatisConfig {
 	@Bean
@@ -19,7 +19,7 @@ public class MybatisConfig {
 		final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        sessionFactory.setMapperLocations(resolver.getResources("classpath:texas/sbq/travel/mapper/*.xml"));
+        sessionFactory.setMapperLocations(resolver.getResources("classpath:texas/sbq/travel/mappers/*.xml"));
         return sessionFactory.getObject();
     }
     

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="texas.sbq.travel.mapper.ReplyMapper">
+	<insert id="insertArticle">
+		insert into articles(title, content, userid, ctype)
+		values (#{title},#{content}, #{writer}, #{ctype})
+	</insert>	
+<insert id="insertReservation" parameterType="texas.sbq.travel.domain.Reservation">
+	insert into reservation (uid,tel,fdate,fper)values
+					(#{uid},#{tel},#{fdate},#{fper})
+	</insert>
+	<select id="selectBoardAllCount" resultType="int" parameterType="string">
+		select count(*)	count from board where ctype like #{value}
+	</select>
+	
+	<select id="selectAllBoardFAQ" resultType="texas.sbq.travel.boardBoard">
+		select a.*
+		from (select * from board 
+		order by seq desc limit #{startrow}, #{pagesize}) a
+		where ctype like #{ctype}
+	</select>
+	
+	<select id="selectAllBoardCustomer" resultType="texas.sbq.travel.boardBoard">
+		select a.*
+		from (select * from board 
+		order by seq desc limit #{startrow}, #{pagesize}) a
+		where ctype like #{ctype}
+	</select>
+	
+	<select id="selectAllBoardNotice" resultType="texas.sbq.travel.boardBoard">
+		select a.*
+		from (select * from board 
+		order by seq desc limit #{startrow}, #{pagesize}) a
+		where ctype like #{ctype}
+	</select>
+	
+	
+		
+	<select id="selectBoardRead" resultType="texas.sbq.travel.boardBoard">
+		select * from board where seq like #{seq}
+	</select>
+	
+	<update id="viewCntIncrease">
+	update board set viewcnt = viewcnt +1 where seq = #{seq}
+	</update>
+
+	<update id="updateBoard">
+		update board
+		set title =	#{title}, content = #{content}
+		where seq like #{seq}
+	</update>
+
+	<delete id="deleteBoard">
+		delete from board where seq like #{seq}
+	</delete>
+
+	<select id="listPage" resultType="Board">
+		select * from board order by seq desc limit #{pageSize}
+	</select>
+	<select id="createCommunity" parameterType="hashmap">
+		${CREATE_COMMUNITY}
+	</select>
+	<select id="createLike" parameterType="hashmap">
+		${CREATE_LIKE}
+	</select>
+	<select id="createReply" parameterType="hashmap">
+		${CREATE_REPLY}
+	</select>
+	
+	<select id="dropCommunity" parameterType="texas.sbq.travel.map.Maps">
+		${DROP_TABLE}
+	</select>
+	
+	<select id="truncateCommunity" parameterType="hashmap">
+		${TRUNCATE}
+	</select>
+	
+		<select id="communitylist" parameterType="int" resultType="texas.sbq.travel.community.Community"> 
+		select *
+		from community
+		order by artseq
+		
+	</select>
+	<select id="allcommunitylist"  resultType="texas.sbq.travel.community.Community">
+		select * from community order by artseq desc
+	</select>
+    
+    <insert id="insertCommunity" parameterType="texas.sbq.travel.community.Community">
+    	insert into community(artseq,uid,img,title,content) values
+			(#{artseq},#{uid},#{img},#{title},#{content})
+    </insert>
+    <select id="countCommunity" resultType="int">
+    	select count(*) from community 
+    </select>
+    <insert id="insertReply" parameterType="texas.sbq.travel.community.Reply">
+    	insert into reply 
+		(reseq,rcomments,uid,artseq) values (#{reseq},#{recomments},#{uid},#{artseq}) 
+    </insert>
+    
+   <select id="getreply" parameterType="int" resultType="texas.sbq.travel.community.Reply">
+		select * from comment where artseq like #{artseq} 
+	</select>
+	
+	<select id="selectbyuid" parameterType="texas.sbq.travel.texas.sbq.travel.community.Community" resultType="string">
+		select max(artseq) from community where uid like #{uid} 
+	</select>
+	
+	<insert id="insertIMG" parameterType="com.wego.web.community.Community">
+    	update community set img = #{img} where artseq like #{artseq}
+    </insert>
+	</mapper>

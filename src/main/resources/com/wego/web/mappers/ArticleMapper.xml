@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="texas.sbq.travel.mapper.ArticleMapper">
+
+	<select id="create" >
+	 create table articles(article_seq int(10) primary key auto_increment,
+	     userid varchar(20),
+	     image varchar(500),
+	     title varchar(100),
+	     content varchar(500),
+	     modify_date varchar(20),
+	     tourism_seq int(10),
+	     festival_seq int(10),
+	     category varchar(10),
+	     foreign key (festival_seq) references festival(festival_seq),
+	     foreign key (tourism_seq) references tourism(tourism_seq),
+	     foreign key(userid) references users(userid)
+ )default character set utf8 collate utf8_general_ci;
+	</select>
+	<insert id="insert">
+		insert into articles(title, content, userid, category)
+		values (#{title},#{content}, #{writer}, #{category})
+	</insert>	
+	
+
+	<select id="count" resultType="string" parameterType="string">
+		select count(*)	count 
+		from articles  
+		<where>
+			and category like #{value}
+		</where>
+	</select>
+	<select id="countFavors" resultType="string" parameterType="string">
+		select count(*)	count 
+		from articles 
+		where article_seq like #{value}
+		
+	</select>
+	<select id="select" resultType="texas.sbq.travel.domain.Article"
+								parameterType="texas.sbq.travel.domain.Article">
+		select * from articles 
+		where category like #{category} and article_seq like #{articleSeq}
+	</select>
+	<select id="filter" resultType="texas.sbq.travel.domain.Article">
+		select t.*
+		from (select * from articles 
+			  order by article_seq desc limit #{startrow}, #{pagesize}) t
+		where category like #{value}
+	</select>
+	<select id="selectRatingPerArticle" parameterType="string" 
+	                         resultType="string">
+		select round(avg(rating)*1,2) rating
+		from articles
+		where hotel_seq like #{hotelSeq}
+	</select>
+	<update id="update" parameterType="texas.sbq.travel.domain.Article">
+		update articles
+		set title =	#{title}, content = #{content}
+		where article_seq like #{articleSeq}
+	</update>
+
+	<delete id="delete" parameterType="string">
+		delete from articles 
+		where article_seq like #{value}
+	</delete>
+	</mapper>
