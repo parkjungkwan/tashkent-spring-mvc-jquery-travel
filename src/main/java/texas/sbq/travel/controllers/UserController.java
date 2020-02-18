@@ -30,7 +30,6 @@ import texas.sbq.travel.util.Printer;
 @RequestMapping("/users")
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-	@Autowired Map<String, Object>map;
 	@Autowired User user;
 	@Autowired Printer printer;
 	@Autowired UserService userService;
@@ -46,8 +45,8 @@ public class UserController {
 	public User get(@PathVariable String id){
 		return userService.detail(id);
 	}
-	@GetMapping("/{id}")
-	public User login(@PathVariable String uid, @RequestBody User user) {
+	@GetMapping("/{id}/login")
+	public User login(@PathVariable("id") String userid, @RequestBody User user) {
 		return userService.login(user);
 	}
 	@GetMapping("/{id}/exist")

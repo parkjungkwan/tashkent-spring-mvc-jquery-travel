@@ -24,7 +24,6 @@ import texas.sbq.travel.util.Printer;
 @RequestMapping("/tourism")
 public class TourismController {
 	private static final Logger logger = LoggerFactory.getLogger(TourismController.class);
-	@Autowired Map<String, Object>map;
 	@Autowired Pager pager;
 	@Autowired Printer printer;
 	@Autowired Tourism tourism;

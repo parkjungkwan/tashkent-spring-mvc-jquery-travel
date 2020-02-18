@@ -9,6 +9,7 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     username: demo
     password: demonstration
+ 
   
      
 
