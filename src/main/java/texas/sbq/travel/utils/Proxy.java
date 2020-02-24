@@ -1,4 +1,4 @@
-package texas.sbq.travel.proxies;
+package texas.sbq.travel.utils;
 
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;

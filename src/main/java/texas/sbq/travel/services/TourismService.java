@@ -8,24 +8,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import texas.sbq.travel.domains.Pager;
 import texas.sbq.travel.domains.Tourism;
 import texas.sbq.travel.domains.Tourism;
 import texas.sbq.travel.mappers.TourismMapper;
 import texas.sbq.travel.mappers.TourismMapper;
-import texas.sbq.travel.proxies.Pager;
 import texas.sbq.travel.services.TourismService;
 
 @Service
-public class TourismService {
+public class TourismService implements IService{
 	
 	@Autowired TourismMapper tourismMapper;
+	@Override public void save(Object o) { tourismMapper.insert((Tourism) o);}
+	@Override public String count(Object o) { return tourismMapper.count();}
+	@Override public Tourism detail(Object o) { return tourismMapper.selectById(String.valueOf(o));}
+	@Override public List<?> list(Object o){ return tourismMapper.select((Pager) o);}
+	@Override public void edit(Object o) { tourismMapper.update((Tourism) o);}
+	@Override public void remove(Object o) { tourismMapper.delete(String.valueOf(o));}
 	public void create() { tourismMapper.create();}
-	public void save(Tourism tourism) { tourismMapper.insert(tourism);}
-	public String count() { return tourismMapper.count();}
-	public Tourism detail(String tourismSeq) { return tourismMapper.select(tourismSeq);}
-	public List<Tourism> list(Pager pager){ return tourismMapper.filter(pager);}
-	public void edit(Tourism tourism) { tourismMapper.update(tourism);}
-	public void remove(String tourismSeq) { tourismMapper.delete(tourismSeq);}
 	
 	public List<String> makeUserid() {
 
@@ -121,5 +121,6 @@ public class TourismService {
 			tourismMapper.insert(tourismList.get(i));
 		}
 	}
+
 
 }

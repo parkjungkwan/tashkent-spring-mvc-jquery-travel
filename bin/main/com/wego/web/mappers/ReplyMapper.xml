@@ -22,7 +22,13 @@
 		order by seq desc limit #{startrow}, #{pagesize}) a
 		where ctype like #{ctype}
 	</select>
-	
+	<select id="selectCommentsList" parameterType="texas.sbq.travel.hotel.Comments" resultType="texas.sbq.travel.hotel.Comments">
+			select * 
+			from comments c join hotel h
+			on c.hseq = h.hseq 
+			where h.hseq like #{hseq}
+
+		</select> 
 	<select id="selectAllBoardCustomer" resultType="texas.sbq.travel.boardBoard">
 		select a.*
 		from (select * from board 

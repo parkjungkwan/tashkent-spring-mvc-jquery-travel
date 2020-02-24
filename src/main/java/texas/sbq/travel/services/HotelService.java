@@ -5,52 +5,28 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import texas.sbq.travel.domains.Opinion;
 import texas.sbq.travel.domains.Hotel;
-import texas.sbq.travel.domains.Hotel;
-import texas.sbq.travel.domains.Reservation;
-import texas.sbq.travel.domains.Room;
+import texas.sbq.travel.domains.Pager;
 import texas.sbq.travel.mappers.HotelMapper;
-import texas.sbq.travel.mappers.HotelMapper;
-import texas.sbq.travel.proxies.Pager;
-import texas.sbq.travel.services.HotelService;
-@Service
-public class HotelService {
+
+public class HotelService  implements IService{
 	
 	@Autowired HotelMapper hotelMapper;
-	
+	@Override public void save(Object o) { hotelMapper.insert((Hotel) o);}
+	@Override public String count(Object o) { return hotelMapper.count();}
+	@Override public Hotel detail(Object o) { return hotelMapper.selectById(String.valueOf(o));}
+	@Override public List<?> list(Object o){ return hotelMapper.select((Pager) o);}
+	@Override public void edit(Object o) { hotelMapper.update((Hotel) o);}
+	@Override public void remove(Object o) { hotelMapper.delete(String.valueOf(o));}
 	public void create() { hotelMapper.create();}
-	public void save(Hotel hotel) { hotelMapper.insert(hotel);}
-	public String count() { return hotelMapper.count();}
-	public Hotel detail(String hotelSeq) { return hotelMapper.select(hotelSeq);}
-	public List<Hotel> list(Pager pager){ return hotelMapper.filter(pager);}
-	public void edit(Hotel hotel) { hotelMapper.update(hotel);}
-	public void remove(String hotelSeq) { hotelMapper.delete(hotelSeq);}
-	
-    
 	public List<String> hotelnameList() {
 		List<String> hotelname = Arrays.asList("호텔 카푸치노","알로프트 서울 강남","프레이저 플레이스",
 				"더리센츠 호텔","골든호텔","카라쉬 호텔","케니스토리","호텔 크레센도","호텔 데님",
 				"호텔 선샤인 서울","호텔 포레힐","라비타 호텔","메이플레이스","IBC 호텔","아벤트리 호텔","크라운 호텔","호텔 페이토","호텔 아트리움");
-		
 		return hotelname;
 	}
-	
-
-
-	/*
-	 * public List<Double> ratingList(){ List<Double> rating =
-	 * Arrays.asList(8.6,5.4,8.6,8.0,6.4,9.4,5.2,8.0,4.0,5.5,9.2,9.2,7.0,7.2,6.4,7.6
-	 * ,5.4,5.5);
-	 * 
-	 * return rating;
-	 * 
-	 * }
-	 */
-	 
 	public List<String> hotelimgList(){
 		List<String> hotelimg = Arrays.asList("https://image.goodchoice.kr/resize_1000X500x0/affiliate/2018/02/20/5a8bd16270015.jpg",
 				"https://image.goodchoice.kr/resize_1000X500x0/affiliate/2016/05/24/5743e4abad01d.jpg",
@@ -181,5 +157,5 @@ public class HotelService {
 	
 	}
 	
-
+	
 }

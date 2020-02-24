@@ -27,13 +27,13 @@
 		from festivals  
 		
 	</select>
-	<select id="select" resultType="texas.sbq.travel.domain.Festival" 
+	<select id="selectById" resultType="texas.sbq.travel.domain.Festival" 
   								parameterType="string">
 		select * 
 		from festivals 
 	</select>
 	
- <select id="filter" resultType="texas.sbq.travel.domain.Festival">
+ <select id="select" resultType="texas.sbq.travel.domain.Festival">
  		select * 
 		from festivals 
  </select>

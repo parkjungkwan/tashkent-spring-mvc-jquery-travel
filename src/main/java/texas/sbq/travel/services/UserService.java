@@ -9,29 +9,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import texas.sbq.travel.domains.Pager;
 import texas.sbq.travel.domains.User;
 import texas.sbq.travel.domains.User;
 import texas.sbq.travel.mappers.UserMapper;
 import texas.sbq.travel.mappers.UserMapper;
-import texas.sbq.travel.proxies.Pager;
 import texas.sbq.travel.services.UserService;
 
 
 @Service
-public class UserService {
+public class UserService implements IService{
 	@Autowired UserMapper userMapper;
+	@Override public void save(Object o) { userMapper.insert((User) o);}
+	@Override public String count(Object o) { return userMapper.count();}
+	@Override public User detail(Object o) { return userMapper.selectById(String.valueOf(o));}
+	@Override public List<User> list(Object o){ return userMapper.select((Pager) o);}
+	@Override public void edit(Object o) { userMapper.update((User) o);}
+	@Override public void remove(Object o) { userMapper.delete(String.valueOf(o));}
 	public void create() { userMapper.create();}
-	public void truncate() {}
-	public void save(User user) { userMapper.insert(user);}
-	public String count() { return userMapper.count();}
-	public User detail(String userSeq) { return userMapper.select(userSeq);}
-	public List<User> list(Pager pager){ return userMapper.filter(pager);}
-	public void edit(User user) { userMapper.update(user);}
-	public void remove(String userSeq) { userMapper.delete(userSeq);}
-	
-	public User login(User user) {return userMapper.login(user);}
-	public User findUserid(User user) {return userMapper.findUserid(user);}
-	public User findPasswd(User user) {return userMapper.findPasswd(user);}
+	public User login(User user) {return userMapper.selectUser(user);}
+	public User findUserid(User user) {return userMapper.selectUserid(user);}
+	public User findPasswd(User user) {return userMapper.selectPasswd(user);}
 	public String existUserid(String userid) {return userMapper.exist(userid);}
 	public void truncateUsers() {userMapper.truncate();}
 	@Transactional

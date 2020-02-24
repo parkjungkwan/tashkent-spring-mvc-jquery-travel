@@ -33,24 +33,24 @@
 			and category like #{value}
 		</where>
 	</select>
-	<select id="countFavors" resultType="string" parameterType="string">
+	<select id="countById" resultType="string" parameterType="string">
 		select count(*)	count 
 		from articles 
 		where article_seq like #{value}
 		
 	</select>
-	<select id="select" resultType="texas.sbq.travel.domain.Article"
+	<select id="selectById" resultType="texas.sbq.travel.domain.Article"
 								parameterType="texas.sbq.travel.domain.Article">
 		select * from articles 
 		where category like #{category} and article_seq like #{articleSeq}
 	</select>
-	<select id="filter" resultType="texas.sbq.travel.domain.Article">
+	<select id="select" resultType="texas.sbq.travel.domain.Article">
 		select t.*
 		from (select * from articles 
 			  order by article_seq desc limit #{startrow}, #{pagesize}) t
 		where category like #{value}
 	</select>
-	<select id="selectRatingPerArticle" parameterType="string" 
+	<select id="selectRatingById" parameterType="string" 
 	                         resultType="string">
 		select round(avg(rating)*1,2) rating
 		from articles

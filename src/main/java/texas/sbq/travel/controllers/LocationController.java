@@ -1,8 +1,6 @@
 package texas.sbq.travel.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,13 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import texas.sbq.travel.domains.Hotel;
 import texas.sbq.travel.domains.Location;
-import texas.sbq.travel.domains.Opinion;
+import texas.sbq.travel.domains.Pager;
 import texas.sbq.travel.enums.Messenger;
-import texas.sbq.travel.proxies.Pager;
 import texas.sbq.travel.services.LocationService;
-import texas.sbq.travel.util.Printer;
+import texas.sbq.travel.utils.Printer;
 
 @RestController
 @RequestMapping("/locations")

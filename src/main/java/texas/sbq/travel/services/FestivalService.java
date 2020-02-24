@@ -12,31 +12,30 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import texas.sbq.travel.domains.Festival;
-import texas.sbq.travel.generics.Box;
-import texas.sbq.travel.generics.Inventory;
+import texas.sbq.travel.domains.Pager;
+import texas.sbq.travel.domains.Room;
 import texas.sbq.travel.domains.Festival;
 import texas.sbq.travel.mappers.FestivalMapper;
 import texas.sbq.travel.mappers.FestivalMapper;
-import texas.sbq.travel.proxies.Pager;
 import texas.sbq.travel.services.FestivalService;
-import texas.sbq.travel.util.Printer;
+import texas.sbq.travel.utils.Box;
+import texas.sbq.travel.utils.Inventory;
+import texas.sbq.travel.utils.Printer;
 
 @Service
-public class FestivalService {
+public class FestivalService implements IService{
+	@Autowired FestivalMapper festivalMapper;
 	@Autowired Inventory<HashMap<String,String>> inventory;
 	@Autowired Box<String> box;
 	@Autowired Printer printer;
 	@Autowired Festival festival;
-	@Autowired FestivalMapper festivalMapper;
-	
+	@Override public void save(Object o) { festivalMapper.insert((Festival) o);}
+	@Override public String count(Object o) { return festivalMapper.count();}
+	@Override public Festival detail(Object o) { return festivalMapper.selectById(String.valueOf(o));}
+	@Override public List<?> list(Object o){ return festivalMapper.select((Pager) o);}
+	@Override public void edit(Object o) { festivalMapper.update((Festival) o);}
+	@Override public void remove(Object o) { festivalMapper.delete(String.valueOf(o));}
 	public void create() { festivalMapper.create();}
-	public void save(Festival festival) { festivalMapper.insert(festival);}
-	public String count() { return festivalMapper.count();}
-	public Festival detail(String festivalSeq) { return festivalMapper.select(festivalSeq);}
-	public List<Festival> list(Pager pager){ return festivalMapper.filter(pager);}
-	public void edit(Festival festival) { festivalMapper.update(festival);}
-	public void remove(String festivalSeq) { festivalMapper.delete(festivalSeq);}
-	
 	@Transactional
 	public ArrayList<HashMap<String,String>> crawling(){
 		String url = "https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=%EC%84%9C%EC%9A%B8%ED%96%89%EC%82%AC";

@@ -6,28 +6,21 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import texas.sbq.travel.domains.Pager;
 import texas.sbq.travel.domains.Room;
-import texas.sbq.travel.domains.Tourism;
 import texas.sbq.travel.mappers.RoomMapper;
-import texas.sbq.travel.mappers.TourismMapper;
-import texas.sbq.travel.proxies.Pager;
-import texas.sbq.travel.services.RoomService;
 
-@Service
-public class RoomService {
-	
+public class RoomService implements IService{
 	@Autowired RoomMapper roomMapper;
+	@Override public void save(Object o) { roomMapper.insert((Room) o);}
+	@Override public String count(Object o) { return roomMapper.count();}
+	@Override public Room detail(Object o) { return roomMapper.selectById(String.valueOf(o));}
+	@Override public List<?> list(Object o){ return roomMapper.select((Pager) o);}
+	@Override public void edit(Object o) { roomMapper.update((Room) o);}
+	@Override public void remove(Object o) { roomMapper.delete(String.valueOf(o));}
 	public void create() { roomMapper.create();}
-	public void save(Room room) { roomMapper.insert(room);}
-	public String count() { return roomMapper.count();}
-	public Room detail(String roomSeq) { return roomMapper.select(roomSeq);}
-	public List<Room> list(Pager pager){ return roomMapper.filter(pager);}
-	public void edit(Room room) { roomMapper.update(room);}
-	public void remove(String roomSeq) { roomMapper.delete(roomSeq);}
-	
 	public List<String> roomimgList() {
 		List<String> roomimg = Arrays.asList("https://image.goodchoice.kr/resize_370x220/affiliate/2016/05/23/57427066030b2.jpg",
 				"https://image.goodchoice.kr/resize_370x220/affiliate/2016/12/06/584623540866a.jpg",

@@ -15,6 +15,11 @@
 	<select id="selectBoardAllCount" resultType="int" parameterType="string">
 		select count(*)	count from board where ctype like #{value}
 	</select>
+			<select id="selectReservationList" parameterType="texas.sbq.travel.hotel.Reservation" resultType="texas.sbq.travel.hotel.Reservation">
+			select * from reservation
+		</select> 
+	
+	
 	
 	<select id="selectAllBoardFAQ" resultType="texas.sbq.travel.boardBoard">
 		select a.*

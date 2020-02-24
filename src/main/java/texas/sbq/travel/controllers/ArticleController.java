@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import texas.sbq.travel.domains.Article;
+import texas.sbq.travel.domains.Pager;
 import texas.sbq.travel.enums.Messenger;
-import texas.sbq.travel.generics.Box;
-import texas.sbq.travel.proxies.Crawler;
-import texas.sbq.travel.proxies.Filer;
-import texas.sbq.travel.proxies.Pager;
-import texas.sbq.travel.proxies.Proxy;
 import texas.sbq.travel.services.ArticleService;
+import texas.sbq.travel.utils.Box;
+import texas.sbq.travel.utils.Crawler;
+import texas.sbq.travel.utils.Filer;
+import texas.sbq.travel.utils.Proxy;
 
 @RestController
 @RequestMapping("/articles")
@@ -54,7 +54,7 @@ public class ArticleController extends Proxy {
 	public List<Article> get(@PathVariable("pageSize") String pageSize, @PathVariable("nowPage") String nowPage,
 			 @PathVariable("option") String option, @PathVariable("search") String search, @PathVariable("group") String category) {
 		pager.setCtype(category);
-		articleService.count();
+		articleService.count(null);
 		pager.setRowCount(0);
 		pager.setPageSize(Integer.parseInt(pageSize));
 		pager.setBlockSize(5);

@@ -11,32 +11,30 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import texas.sbq.travel.domains.Article;
+import texas.sbq.travel.domains.Pager;
 import texas.sbq.travel.domains.Tourism;
-import texas.sbq.travel.generics.Box;
-import texas.sbq.travel.generics.Inventory;
 import texas.sbq.travel.mappers.ArticleMapper;
-import texas.sbq.travel.proxies.Pager;
 import texas.sbq.travel.services.ArticleService;
-import texas.sbq.travel.util.Printer;
+import texas.sbq.travel.utils.Box;
+import texas.sbq.travel.utils.Inventory;
+import texas.sbq.travel.utils.Printer;
 
 @Service
-public class ArticleService {
-	@Autowired Inventory<HashMap<String,String>> inventory;
+public class ArticleService implements IService{
+	@Autowired ArticleMapper articleMapper;
 	@Autowired Box<String> box;
 	@Autowired Article article;
-	@Autowired ArticleService articleService;
 	@Autowired Printer printer;
-	@Autowired ArticleMapper articleMapper;
-	
+	@Autowired Inventory<HashMap<String,String>> inventory;
+	@Override public void save(Object o) { articleMapper.insert((Article)o);}
+	@Override public String count(Object o) { return articleMapper.count();}
+	@Override public Article detail(Object o) { return articleMapper.selectById(String.valueOf(o));}
+	@Override public List<?> list(Object o){ return articleMapper.select((Pager) o);}
+	@Override public void edit(Object o) { articleMapper.update((Article)o);}
+	@Override public void remove(Object o) { articleMapper.delete(String.valueOf(o));}
 	public void create() { articleMapper.create();}
-	public void save(Article article) { articleMapper.insert(article);}
-	public String count() { return articleMapper.count();}
-	public Article detail(Article article) { return articleMapper.select(article);}
-	public List<Article> list(Pager pager){ return articleMapper.filter(pager);}
-	public void edit(Article article) { articleMapper.update(article);}
-	public void remove(String aritcleSeq) { articleMapper.delete(aritcleSeq);}
-	public String favors(String articleSeq) {return articleMapper.countFavors(articleSeq);}
-	public String rating(String hotelSeq) { return articleMapper.selectRatingPerArticle(hotelSeq);}
+	public String favors(String articleSeq) {return articleMapper.countById(articleSeq);}
+	public String rating(String hotelSeq) { return articleMapper.selectRatingById(hotelSeq);}
 	@Transactional
 	public List<?> initialize() {
 		//
@@ -69,5 +67,7 @@ public class ArticleService {
 		System.out.println(inventory+"1111");
 		return inventory.get();
 	}
+
+	
 	
 }

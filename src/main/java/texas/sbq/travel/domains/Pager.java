@@ -1,9 +1,10 @@
-package texas.sbq.travel.proxies;
+package texas.sbq.travel.domains;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
+import texas.sbq.travel.utils.Proxy;
 
 
 @Data

@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import texas.sbq.travel.generics.Box;
-import texas.sbq.travel.proxies.Crawler;
-import texas.sbq.travel.proxies.Pager;
+import texas.sbq.travel.domains.Pager;
+import texas.sbq.travel.utils.Box;
+import texas.sbq.travel.utils.Crawler;
 
 
 @RestController

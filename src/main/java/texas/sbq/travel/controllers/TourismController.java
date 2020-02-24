@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import texas.sbq.travel.domains.Pager;
 import texas.sbq.travel.domains.Tourism;
 import texas.sbq.travel.enums.Messenger;
-import texas.sbq.travel.proxies.Pager;
 import texas.sbq.travel.services.TourismService;
-import texas.sbq.travel.util.Printer;
+import texas.sbq.travel.utils.Printer;
 
 
 @RestController

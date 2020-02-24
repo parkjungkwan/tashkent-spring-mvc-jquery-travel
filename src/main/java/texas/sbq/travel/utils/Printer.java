@@ -1,4 +1,4 @@
-package texas.sbq.travel.util;
+package texas.sbq.travel.utils;
 
 import java.util.function.Consumer;
 

@@ -3,11 +3,29 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="texas.sbq.travel.mapper.LocationMapper">
-	<select id="createMap" parameterType="map">
-		${CREATE_MAP}
+	<select id="create" parameterType="map">
+		create table locations(location_seq primary key auto_increment,
+        address varchar(50),
+        latitude varchar(30),
+        longitude varchar(30)
+		)default character set utf8 collate utf8_general_ci
 	</select> 
- <insert id="insertMap" parameterType="Maps">
-    	insert into map(place,latitude) values
-			(#{place},#{latitude})
- </insert>
+	 <insert id="insert" parameterType="texas.sbq.travel.domains.Location">
+	    	insert into locations(place,latitude) 
+			values	(#{place},#{latitude})
+	 </insert>
+	 <update id="update" parameterType="texas.sbq.travel.domains.Location">
+	 	update locations
+	 	set place = #{place}
+	 	where location_seq like #{location_seq}
+	 </update>
+	 <delete id="delete" parameterType="string">
+	 	delete * from locations
+	 	where location_seq like #{value}
+	 </delete>
+	 <select id="selectById" parameterType="string">
+	 	select * from locations
+	 	where location_seq like #{locationSeq}
+	 </select>
+	 <select id="select" parameterType="texas.sbq.travel.domains.Pager"></select>
 </mapper>

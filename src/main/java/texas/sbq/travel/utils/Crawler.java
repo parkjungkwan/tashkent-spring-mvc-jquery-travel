@@ -1,4 +1,4 @@
-package texas.sbq.travel.proxies;
+package texas.sbq.travel.utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,9 +12,6 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-
-import texas.sbq.travel.generics.Box;
-import texas.sbq.travel.generics.Inventory;
 
 @Component("crawler") @Lazy
 public class Crawler extends Proxy{

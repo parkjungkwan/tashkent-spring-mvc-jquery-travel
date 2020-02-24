@@ -11,25 +11,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import texas.sbq.travel.domains.Opinion;
+import texas.sbq.travel.domains.Pager;
 import texas.sbq.travel.domains.Reply;
 import texas.sbq.travel.domains.Tourism;
 import texas.sbq.travel.mappers.ReplyMapper;
 import texas.sbq.travel.mappers.TourismMapper;
-import texas.sbq.travel.proxies.Pager;
 import texas.sbq.travel.services.ReplyService;
 
 @Service
-public class ReplyService {
+public class ReplyService implements IService{
 	
 	@Autowired ReplyMapper replyMapper;
+	@Override public void save(Object o) { replyMapper.insert((Reply) o);}
+	@Override public String count(Object o) { return replyMapper.count();}
+	@Override public Reply detail(Object o) { return replyMapper.selectById(String.valueOf(o));}
+	@Override public List<Reply> list(Object o){ return replyMapper.select((Pager) o);}
+	@Override public void edit(Object o) { replyMapper.update((Reply) o);}
+	@Override public void remove(Object o) { replyMapper.delete(String.valueOf(o));}
 	public void create() { replyMapper.create();}
-	public void save(Reply reply) { replyMapper.insert(reply);}
-	public String count() { return replyMapper.count();}
-	public Reply detail(String replySeq) { return replyMapper.select(replySeq);}
-	public List<Reply> list(Pager pager){ return replyMapper.filter(pager);}
-	public void edit(Reply reply) { replyMapper.update(reply);}
-	public void remove(String replySeq) { replyMapper.delete(replySeq);}
-	
 	public String makeUserid() {
 	      List<String> uidText = Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "n", "m", "o",
 	                 "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9",
@@ -158,4 +157,5 @@ public class ReplyService {
 			}
 		
 		}
+	
 }

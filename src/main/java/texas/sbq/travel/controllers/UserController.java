@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import texas.sbq.travel.domains.Pager;
 import texas.sbq.travel.domains.User;
 import texas.sbq.travel.enums.Messenger;
-import texas.sbq.travel.proxies.Pager;
 import texas.sbq.travel.services.UserService;
-import texas.sbq.travel.util.Printer;
+import texas.sbq.travel.utils.Printer;
 
 
 

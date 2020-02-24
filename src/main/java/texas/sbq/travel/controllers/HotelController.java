@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import texas.sbq.travel.domains.Hotel;
 import texas.sbq.travel.domains.Opinion;
+import texas.sbq.travel.domains.Pager;
 import texas.sbq.travel.domains.Reservation;
 import texas.sbq.travel.domains.Room;
 import texas.sbq.travel.enums.Messenger;
-import texas.sbq.travel.proxies.Pager;
 import texas.sbq.travel.services.HotelService;
 import texas.sbq.travel.services.ReservationService;
-import texas.sbq.travel.util.Printer;
+import texas.sbq.travel.utils.Printer;
 
 @RestController
 @RequestMapping("/hotels")

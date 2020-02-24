@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import texas.sbq.travel.domains.Hotel;
+import texas.sbq.travel.domains.Pager;
 import texas.sbq.travel.domains.Reservation;
 import texas.sbq.travel.enums.Messenger;
-import texas.sbq.travel.proxies.Pager;
 import texas.sbq.travel.services.ReservationService;
 
 @RestController

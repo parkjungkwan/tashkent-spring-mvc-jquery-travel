@@ -1,4 +1,4 @@
-package texas.sbq.travel.generics;
+package texas.sbq.travel.utils;
 
 import java.util.ArrayList;
 

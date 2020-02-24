@@ -1,4 +1,4 @@
-package texas.sbq.travel.proxies;
+package texas.sbq.travel.utils;
 
 import java.io.File;
 import java.util.UUID;
